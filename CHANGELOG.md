@@ -1,10 +1,222 @@
 # Changes
 
-Version 1.3.1 (2019-07-29)
+## Version 1.4.1 (2020-01-25)
+
+We closed a total of 93 issues (enhancements and bug fixes) through 35 pull requests, since our last release on 2019-12-31.
+
+## Issues Closed
+  - Binder is broken for network-analysis (#399)
+  - Some tutorial links giving 404 (#400)
+  - Fix links 2 (#398)
+  - Fix links for notebooks (#397)
+  - [DOC] Reorg for tutorials page (#396)
+  - Traveling Salesperson Notebook (#110)
+  - create new TSP notebook with pulp (#100)
+  - [WIP] TSP notebook (#386)
+  - [DOC] paths docstring missing (#394)
+  - correcting routes doc (#395)
+  - [ENH] add back `build` badge (#393)
+  - [BUG] Stale links on pysal.org/spaghetti (#387)
+  - Rebuild docs (#391)
+  - force read-add conn-comp notebook (#390)
+  - repushing missing notebooks (#389)
+  - Stale links (#388)
+  - [ENH] shortest-path extraction (#380)
+  - [ENH] regular lattice generator  (#385)
+  - [WIP][ENH] addressing shortest path extract (#382)
+  - mention the pysal/notebook project (#384)
+  - point pattern --> network error message (#383)
+  - [ENH] connected components demo notebook (#381)
+  - updating README.md (#379)
+  - data type testing (#378)
+  - spaghetti should handle native cg.Point/Chain objects (#217)
+  - Native geometries (#377)
+  - adding CoC link to README.md (#376)
+  - update CHANGELOG.md format (#375)
+  - all reqs found in requirements*.txt necessary? (#346)
+  - [ENH] explore overlapping "nearest point" calculation — DRY (#320)
+  - altering reference format in docs (#372)
+  - Clear instructions for black/pre-commit for contributing (#369)
+  - Contrib precommit (#371)
+  - alldistances vs. distancematrix? (#351)
+  - distance matrix and tree storage (#370)
+  - update readme (#367)
+  - Adding citations for facility location notebook (#366)
+  - v1.4 release checklist (#340)
+  - updating README.md (#364)
+  - add pre-commit black for PRs? (#333)
+  - trying out the black pre-commit hook (#363)
+  - adding descartes to environment.yml (#362)
+  - Attempt binder3 (#361)
+  - need readthedocs.yml? (#360)
+  - need all tarball tests? (#359)
+  - Attempt binder2 (#358)
+  - using environment.yml for binder (#357)
+  - Add blob/master/ to notebooks link (#354)
+  - addressing #354 (#356)
+  - Citation review (#355)
+  - launch binder (#78)
+  - version 1.3.1 --> 1.4 bump (#353)
+  - updating version and docs (#352)
+  - improve spaghetti homepage and notebooks? (#332)
+  - Review docs for links, etc. (#338)
+  - Spelling and default value of `n_processes` (#341)
+  - [WIP] TSP notebook (#330)
+  - [ENH][WIP]extension of #339: Rahul799 docs/bugfix (#342)
+
+## Pull Requests
+  - Fix links 2 (#398)
+  - Fix links for notebooks (#397)
+  - [WIP] TSP notebook (#386)
+  - correcting routes doc (#395)
+  - [ENH] add back `build` badge (#393)
+  - Rebuild docs (#391)
+  - force read-add conn-comp notebook (#390)
+  - repushing missing notebooks (#389)
+  - Stale links (#388)
+  - [WIP][ENH] addressing shortest path extract (#382)
+  - mention the pysal/notebook project (#384)
+  - point pattern --> network error message (#383)
+  - [ENH] connected components demo notebook (#381)
+  - updating README.md (#379)
+  - data type testing (#378)
+  - Native geometries (#377)
+  - adding CoC link to README.md (#376)
+  - update CHANGELOG.md format (#375)
+  - altering reference format in docs (#372)
+  - Contrib precommit (#371)
+  - distance matrix and tree storage (#370)
+  - update readme (#367)
+  - Adding citations for facility location notebook (#366)
+  - updating README.md (#364)
+  - trying out the black pre-commit hook (#363)
+  - adding descartes to environment.yml (#362)
+  - Attempt binder3 (#361)
+  - Attempt binder2 (#358)
+  - using environment.yml for binder (#357)
+  - addressing #354 (#356)
+  - Citation review (#355)
+  - version 1.3.1 --> 1.4 bump (#353)
+  - updating version and docs (#352)
+  - [WIP] TSP notebook (#330)
+  - [ENH][WIP]extension of #339: Rahul799 docs/bugfix (#342)
+
+The following individuals contributed to this release:
+
+  - James Gaboardi
+
+
+
+-----------------------------------------------------
+
+
+## Version 1.4.0 (2019-12-31)
+
+We closed a total of 84 issues (enhancements and bug fixes) through 31 pull requests, since our last release on 2019-07-29.
+
+### Issues Closed
+  - updating version and docs (#352)
+  - improve spaghetti homepage and notebooks? (#332)
+  - Review docs for links, etc. (#338)
+  - Spelling and default value of `n_processes` (#341)
+  - [WIP] TSP notebook (#330)
+  - [ENH][WIP]extension of #339: Rahul799 docs/bugfix (#342)
+  - Revert "order analysis.py classes/functions alphabetically" (#350)
+  - order analysis.py classes/functions alphabetically (#349)
+  - updating requirement_dev.txt (#347)
+  - update README.md (#348)
+  - tarball jobs failing on Travis (#343)
+  - updating README.md (#344)
+  - links in the docs,reviewed  (#339)
+  - automatically generate docstrings for class members (#336)
+  - Update docs (#337)
+  - Updating .travis.yml (#335)
+  - fix indentation in `.travis.yml` (#334)
+  - update README.md badges (#331)
+  - Citation stipulation for notebooks (#327)
+  - Notebooks update part 2 (#329)
+  - Notebooks update (#328)
+  - update email address in notebooks (#324)
+  - Plotting error in Facility_Location.ipynb (#325)
+  - Updating Notebooks (#326)
+  - module 'pysal.explore.spaghetti' has no attribute 'element_as_gdf' (#323)
+  - [ENH] util.compute_length() — DRY (#318)
+  - swapping out distance calculation function (#319)
+  - adjusting snapping image in README.md (#317)
+  - inaccurate documentation — Network.split_arcs() (#315)
+  - Split arcs update (#316)
+  - streamline badges in README.md (#313)
+  - streaming badges on README.md (#314)
+  - adding +travis to notification recipients (#312)
+  - broken "development guidelines" link (#309)
+  - updating broken dev link (#311)
+  - Update Travis CI schema (#299)
+  - Update travis CI for new testing schema (#308)
+  - adding static docs badge (#310)
+  - mock c modules for doc dependencies (#288)
+  - doi missing from citation (#306)
+  - adding Zenodo DOI to README.md and website (#307)
+  - blackify setup.py (#305)
+  - Change Read the Docs to GitHub? (#301)
+  - updating README to reflect GitHub docs (#304)
+  - switching to github docs as per #301 (#303)
+  - get_versions() function (#302)
+  - code formatting with black (#293)
+  - blackifying code (#293) (#300)
+  - rtree missing libspatialindex_c library file (#294)
+  - updating install instructions (addressing #294) (#296)
+  - updating install instructions + version bump (#298)
+  - updating font for "Warning" (#297)
+  - update of install instructions in README.md (#295)
+
+### Pull Requests
+  - updating version and docs (#352)
+  - [WIP] TSP notebook (#330)
+  - [ENH][WIP]extension of #339: Rahul799 docs/bugfix (#342)
+  - Revert "order analysis.py classes/functions alphabetically" (#350)
+  - order analysis.py classes/functions alphabetically (#349)
+  - updating requirement_dev.txt (#347)
+  - update README.md (#348)
+  - updating README.md (#344)
+  - Update docs (#337)
+  - Updating .travis.yml (#335)
+  - fix indentation in `.travis.yml` (#334)
+  - update README.md badges (#331)
+  - Notebooks update part 2 (#329)
+  - Notebooks update (#328)
+  - Updating Notebooks (#326)
+  - swapping out distance calculation function (#319)
+  - adjusting snapping image in README.md (#317)
+  - Split arcs update (#316)
+  - streaming badges on README.md (#314)
+  - adding +travis to notification recipients (#312)
+  - updating broken dev link (#311)
+  - Update travis CI for new testing schema (#308)
+  - adding static docs badge (#310)
+  - adding Zenodo DOI to README.md and website (#307)
+  - blackify setup.py (#305)
+  - updating README to reflect GitHub docs (#304)
+  - switching to github docs as per #301 (#303)
+  - blackifying code (#293) (#300)
+  - updating install instructions + version bump (#298)
+  - updating font for "Warning" (#297)
+  - update of install instructions in README.md (#295)
+
+The following individuals contributed to this release:
+
+  - James Gaboardi
+  - Rahul799
+
+
+
+-----------------------------------------------------
+
+
+## Version 1.3.1 (2019-07-29)
 
 We closed a total of 21 issues (enhancements and bug fixes) through 7 pull requests, since our last release on 2019-05-21.
 
-## Issues Closed
+### Issues Closed
 - updating font for "Warning" (#297)
 - update of install instructions in README.md (#295)
 - remove geopandas version stipulation (#291)
@@ -20,7 +232,7 @@ We closed a total of 21 issues (enhancements and bug fixes) through 7 pull reque
 - v1.3 release (#264)
 - Bump version 1.3rc2 --> 1.3 (#280)
 
-## Pull Requests
+### Pull Requests
 - updating font for "Warning" (#297)
 - update of install instructions in README.md (#295)
 - updating citation langauge (#290)
@@ -37,13 +249,11 @@ The following individuals contributed to this release:
 -----------------------------------------------------
 
 
-# Changes
-
-Version 1.3 (2019-05-21)
+## Version 1.3 (2019-05-21)
 
 We closed a total of 14 issues (enhancements and bug fixes) through 5 pull requests, since our last release on 2019-05-14.
 
-## Issues Closed
+### Issues Closed
 - Manually updated CHANGELOG following stable release (#281)
 - v1.3 release (#264)
 - add `requirements_dev.txt` to `MANIFEST.in` (#277)
@@ -54,7 +264,7 @@ We closed a total of 14 issues (enhancements and bug fixes) through 5 pull reque
 - updating README (#274)
 - update notebooks following prior to v1.3 release (#158)
 
-## Pull Requests
+### Pull Requests
 - Update changelog (#279)
 - version bump to include req_dev in MANIFEST.in (#278)
 - v1.2 --> 1.3rc1 (for release candidate) (#276)
@@ -68,20 +278,19 @@ The following individuals contributed to this release:
 
 -----------------------------------------------------
 
-# Changes
 
-Version 1.3rc2 (2019-05-14)
+## Version 1.3rc2 (2019-05-14)
 
 We closed a total of 9 issues (enhancements and bug fixes) through 4 pull requests, since our last release on 2019-05-14.
 
-## Issues Closed
+### Issues Closed
 - version bump to include req_dev in MANIFEST.in (#278)
 - v1.2 --> 1.3rc1 (for release candidate) (#276)
 - Updating notebooks prior to v1.3 release (#275)
 - updating README (#274)
 - update notebooks following prior to v1.3 release (#158)
 
-## Pull Requests
+### Pull Requests
 - version bump to include req_dev in MANIFEST.in (#278)
 - v1.2 --> 1.3rc1 (for release candidate) (#276)
 - Updating notebooks prior to v1.3 release (#275)
@@ -94,13 +303,12 @@ The following individuals contributed to this release:
 
 -----------------------------------------------------
 
-# Changes
 
-Version 1.3rc1 (2019-05-14)
+## Version 1.3rc1 (2019-05-14)
 
 We closed a total of 54 issues (enhancements and bug fixes) through 18 pull requests, since our last release on 2019-02-27.
 
-## Issues Closed
+### Issues Closed
 - Updating notebooks prior to v1.3 release (#275)
 - updating README (#274)
 - update notebooks following prior to v1.3 release (#158)
@@ -138,7 +346,7 @@ We closed a total of 54 issues (enhancements and bug fixes) through 18 pull requ
 - v1.2rc1 bump (#243)
 - adding pandas as a requirement (#241)
 
-## Pull Requests
+### Pull Requests
 - Updating notebooks prior to v1.3 release (#275)
 - updating README (#274)
 - Update docsite (#273)
@@ -168,9 +376,8 @@ The following individuals contributed to this release:
 
 -----------------------------------------------------
 
-# Changes
 
-Version 1.2 (2019-02)
+## Version 1.2 (2019-02)
 
 This is a stable release of v1.2rc1 with no changes to code.
 
@@ -178,13 +385,11 @@ This is a stable release of v1.2rc1 with no changes to code.
 
 -----------------------------------------------------
 
-# Changes
-
-Version 1.2rc1 (2019-02-27)
+## Version 1.2rc1 (2019-02-27)
 
 We closed a total of 160 issues (enhancements and bug fixes) through 60 pull requests, since our last release on 2018-11-01.
 
-## Issues Closed
+### Issues Closed
 - Coverage testing (#239)
 - update .travis.yml and introduce .coveragerc similar to pysal/giddy#81 (#238)
 - Update `bug` template (#237)
@@ -286,7 +491,7 @@ We closed a total of 160 issues (enhancements and bug fixes) through 60 pull req
 - rerunning notebooks (#138)
 - travis build still failing (#127)
 
-## Pull Requests
+### Pull Requests
 - Coverage testing (#239)
 - Update `bug` template (#237)
 - Update issue templates (#236)
@@ -354,18 +559,17 @@ The following individuals contributed to this release:
 
 -----------------------------------------------------
 
-# Changes
 
-Version 1.1.1 (2018-10-31)
+## Version 1.1.1 (2018-10-31)
 
 We closed a total of 5 issues (enhancements and bug fixes) through 2 pull requests, since our last release on 2018-10-30.
 
-## Issues Closed
+### Issues Closed
 - removed .txt format CHANGELOG (#129)
 - rel: v1.1.0 -- Adjusting CHANGELOG.md prior to tagged release (#128)
 - prepare new release for pypi -- v1.1.0 (#57)
 
-## Pull Requests
+### Pull Requests
 - removed .txt format CHANGELOG (#129)
 - rel: v1.1.0 -- Adjusting CHANGELOG.md prior to tagged release (#128)
 
@@ -375,13 +579,12 @@ The following individuals contributed to this release:
 
 -----------------------------------------------------
 
-# Changes
 
-Version 1.1.0 (2018-10-30)
+## Version 1.1.0 (2018-10-30)
 
 We closed a total of 82 issues (enhancements and bug fixes) through 25 pull requests, since our last release on 2018-08-10.
 
-## Issues Closed
+### Issues Closed
   - prepare new release for pypi -- v1.1.0 (#57)
   - refreshing documentation (#124)
   - option to add distance from point to snapped location (#75)
@@ -440,7 +643,7 @@ We closed a total of 82 issues (enhancements and bug fixes) through 25 pull requ
   - [ENH] Add badges (#31)
   - Publish on Zenodo (#36)
 
-## Pull Requests
+### Pull Requests
   - refreshing documentation (#124)
   - attempting pyproj_fix (#122)
   - [WIP] Add snap dist (#123)
@@ -474,11 +677,8 @@ The following individuals contributed to this release:
 
 --------------------------------------------------------------
 
-.. _github-stats:
-Github Stats
-============
 
-GitHub Stats for 2017/03/15 - 2018/07/28 (tag: None)
+## GitHub Stats for 2017/03/15 - 2018/07/28 (tag: None)
 
 These lists are automatically generated,and may be incomplete or contain duplicates.
 
@@ -487,47 +687,47 @@ We closed a total of 39 issues, 12 pull requests and 27 regular issues;
  this is the full list (generated with the script 
 :file:`tools/github_stats.py`):
 
-Pull Requests (12):
+### Pull Requests (12):
 
-* :ghpull:`25`: b'preparing for pypi release'
-* :ghpull:`23`: b'Py2topy3'
-* :ghpull:`24`: b'Spaghetti/update travis'
-* :ghpull:`16`: b'adding an api.py file to spaghetti'
-* :ghpull:`17`: b'Spag/analysis cosmetics'
-* :ghpull:`14`: b'removing `math` in favor of `numpy` for calcs'
-* :ghpull:`13`: b'minor doc commit to practice git workflow'
-* :ghpull:`11`: b'adding a license'
-* :ghpull:`10`: b'setting up travis ci'
-* :ghpull:`8`: b'the first of the new network tutorial notebooks for pysal/spaghetti'
-* :ghpull:`7`: b'rename makes geonet redundant'
-* :ghpull:`6`: b'updated package name and short description in __init__'
+* `#25`: preparing for pypi release
+* `#23`: Py2topy3
+* `#24`: Spaghetti/update travis
+* `#16`: adding an api.py file to spaghetti
+* `#17`: Spag/analysis cosmetics
+* `#14`: removing `math` in favor of `numpy` for calcs
+* `#13`: minor doc commit to practice git workflow
+* `#11`: adding a license
+* `#10`: setting up travis ci
+* `#8`: the first of the new network tutorial notebooks for pysal/spaghetti
+* `#7`: rename makes geonet redundant
+* `#6`: updated package name and short description in __init__
 
-Issues (27):
+### Issues (27):
 
-* :ghissue:`5`: b'update import scheme for new package name'
-* :ghissue:`26`: b'Prepare a release of spaghetti for pypi'
-* :ghissue:`32`: b'pip'
-* :ghissue:`25`: b'preparing for pypi release'
-* :ghissue:`19`: b'api.py tests'
-* :ghissue:`29`: b'trailing comma not allowed with surrounding parenthesis'
-* :ghissue:`27`: b'Necessity of __future__?'
-* :ghissue:`21`: b'`spaghetti` currently only python 2.7.x compatible'
-* :ghissue:`22`: b'Geopandas read'
-* :ghissue:`23`: b'Py2topy3'
-* :ghissue:`24`: b'Spaghetti/update travis'
-* :ghissue:`20`: b'Generalize the Network input API for libpysal/#59'
-* :ghissue:`18`: b'adding gitter badge to README.md'
-* :ghissue:`15`: b'spaghetti needs an api.py module'
-* :ghissue:`17`: b'Spag/analysis cosmetics'
-* :ghissue:`16`: b'adding an api.py file to spaghetti'
-* :ghissue:`4`: b'test release and setup.py'
-* :ghissue:`3`: b'add a readme'
-* :ghissue:`14`: b'removing `math` in favor of `numpy` for calcs'
-* :ghissue:`13`: b'minor doc commit to practice git workflow'
-* :ghissue:`12`: b'Pp notebook'
-* :ghissue:`11`: b'adding a license'
-* :ghissue:`2`: b'set up testing for travis'
-* :ghissue:`10`: b'setting up travis ci'
-* :ghissue:`8`: b'the first of the new network tutorial notebooks for pysal/spaghetti'
-* :ghissue:`7`: b'rename makes geonet redundant'
-* :ghissue:`6`: b'updated package name and short description in __init__'
+* `#5`: update import scheme for new package name
+* `#26`: Prepare a release of spaghetti for pypi
+* `#32`: pip
+* `#25`: preparing for pypi release
+* `#19`: api.py tests
+* `#29`: trailing comma not allowed with surrounding parenthesis
+* `#27`: Necessity of __future__?
+* `#21`: `spaghetti` currently only python 2.7.x compatible
+* `#22`: Geopandas read
+* `#23`: Py2topy3
+* `#24`: Spaghetti/update travis
+* `#20`: Generalize the Network input API for libpysal/#59
+* `#18`: adding gitter badge to README.md
+* `#15`: spaghetti needs an api.py module
+* `#17`: Spag/analysis cosmetics
+* `#16`: adding an api.py file to spaghetti
+* `#4`: test release and setup.py
+* `#3`: add a readme
+* `#14`: removing `math` in favor of `numpy` for calcs
+* `#13`: minor doc commit to practice git workflow
+* `#12`: Pp notebook
+* `#11`: adding a license
+* `#2`: set up testing for travis
+* `#10`: setting up travis ci
+* `#8`: the first of the new network tutorial notebooks for pysal/spaghetti
+* `#7`: rename makes geonet redundant
+* `#6`: updated package name and short description in __init__
