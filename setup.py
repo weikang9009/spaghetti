@@ -49,6 +49,8 @@ def setup_package():
         "docs": "requirements_docs.txt",
         "plus": "requirements_plus.txt",
         "tests": "requirements_tests.txt",
+        "nb_pypi": "requirements_notebooks_pypi.txt",
+        "nb_conda": "requirements_notebooks_conda.txt",
     }
     reqs = _get_requirements_from_files(_groups_files)
     install_reqs = reqs.pop("base")
@@ -64,8 +66,8 @@ def setup_package():
         download_url="https://pypi.org/project/" + package,
         maintainer="James D. Gaboardi",
         maintainer_email="jgaboardi@gmail.com",
-        test_suite="nose.collector",
-        tests_require=["nose"],
+        setup_requires=["pytest-runner"],
+        tests_require=["pytest"],
         keywords="spatial statistics, networks, graphs",
         classifiers=[
             "Development Status :: 5 - Production/Stable",
@@ -78,6 +80,7 @@ def setup_package():
             "Programming Language :: Python",
             "Programming Language :: Python :: 3.6",
             "Programming Language :: Python :: 3.7",
+            "Programming Language :: Python :: 3.8",
         ],
         license="3-Clause BSD",
         packages=[package],

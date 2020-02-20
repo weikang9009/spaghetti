@@ -16,4 +16,5 @@ dependencies:
   - pip:
     - mip
     - ortools
+    - matplotlib_scalebar
     - git+https://github.com/pysal/spaghetti.git@master
