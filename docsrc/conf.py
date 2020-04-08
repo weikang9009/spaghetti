@@ -253,7 +253,7 @@ plot_include_source = True
 
 
 def setup(app):
-    app.add_stylesheet("pysal-styles.css")
+    app.add_css_file("pysal-styles.css")
 
 
 # Example configuration for intersphinx: refer to the Python standard library.
@@ -262,10 +262,11 @@ intersphinx_mapping = {
     "geopandas": ("https://geopandas.readthedocs.io/en/latest/", None),
     "libpysal": ("https://pysal.org/libpysal/", None),
     "matplotlib": ("https://matplotlib.org/", None),
+    "networkx": ("https://networkx.github.io/documentation/stable/", None),
     "numpy": ("https://docs.scipy.org/doc/numpy", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "python": ("https://docs.python.org/3.8/", None),
-    "pulp": ("https://pythonhosted.org/PuLP/", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
 }
 
 # This is processed by Jinja2 and inserted before each notebook

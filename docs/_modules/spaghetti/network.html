@@ -3,22 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>spaghetti.network &#8212; spaghetti v1.4.2 Manual</title>
+    <title>spaghetti.network &#8212; spaghetti v1.4.2.post2 Manual</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -26,6 +22,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -40,7 +40,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           spaghetti</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.4.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.4.2.post2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -73,6 +73,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/connected-components.html">Connected components in a spatial network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/shortest-path-visualization.html">Generating regular lattices and visualizing shortest paths</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/network-analysis.html">Spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/network-spatial-weights.html">Network spatial weights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/spanning-trees.html">Network spanning trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/caveats.html">Caveats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/facility-location.html">Demostrating network-based optimal facility location modeling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/transportation-problem.html">The Transportation Problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/tsp.html">The Traveling Sales(man)(person) Problem — TSP</a></li>
@@ -123,7 +126,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 content">
+    <div class="body col-md-12 content" role="main">
       
   <h1>Source code for spaghetti.network</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">OrderedDict</span>
@@ -189,6 +192,14 @@
 <span class="sd">        ``True`` flags ``self.arc_lengths`` as the weightings,</span>
 <span class="sd">        ``False`` sets no weightings. Default is ``False``.</span>
 <span class="sd">    </span>
+<span class="sd">    weights_kws : dict</span>
+<span class="sd">        Keyword arguments for ``libpysal.weights.W``.</span>
+<span class="sd">    </span>
+<span class="sd">    vertex_atol : {int, None}</span>
+<span class="sd">        Precision for vertex absolute tolerance. Round vertex coordinates to</span>
+<span class="sd">        ``vertex_atol`` decimal places. Default is ``None``. **ONLY** change</span>
+<span class="sd">        the default when there are known issues with digitization.</span>
+<span class="sd">    </span>
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    </span>
@@ -217,19 +228,24 @@
 <span class="sd">        ``PointPattern`` class instances.</span>
 <span class="sd">    </span>
 <span class="sd">    distance_matrix : numpy.ndarray</span>
-<span class="sd">        All network vertices (non-observations) distance matrix.</span>
+<span class="sd">        All network vertices (non-observations) distance matrix. Distances</span>
+<span class="sd">        between vertices in disparate components are recorded as ``inf``</span>
+<span class="sd">        by default.</span>
 <span class="sd">    </span>
 <span class="sd">    network_trees : dict</span>
-<span class="sd">        Keys are the vertex IDs (int). Values are dictionaries</span>
+<span class="sd">        Keys are the vertex IDs (``int``). Values are dictionaries</span>
 <span class="sd">        with the keys being the IDs of the destination vertex</span>
-<span class="sd">        and the value being a list of the shortest path.</span>
+<span class="sd">        and values being lists of vertices along the shortest path. </span>
+<span class="sd">        If the destination vertex is a) the origin or b) </span>
+<span class="sd">        unreachable (disparate component) it is listed as itself being the</span>
+<span class="sd">        neighbor.</span>
 <span class="sd">    </span>
 <span class="sd">    edges : list</span>
 <span class="sd">        Tuples of graph edge IDs.</span>
 <span class="sd">    </span>
 <span class="sd">    edge_lengths : dict</span>
-<span class="sd">        Keys are the graph edge IDs (tuple). Values are the graph edge</span>
-<span class="sd">        length (float).</span>
+<span class="sd">        Keys are the graph edge IDs (``tuple``). Values are the</span>
+<span class="sd">        graph edge length (``float``).</span>
 <span class="sd">    </span>
 <span class="sd">    non_articulation_points : list</span>
 <span class="sd">        All vertices with degree 2 that are not in an isolated</span>
@@ -355,8 +371,8 @@
 <span class="sd">    Unique component labels in the network.</span>
 <span class="sd">    </span>
 <span class="sd">    &gt;&gt;&gt; import numpy</span>
-<span class="sd">    &gt;&gt;&gt; numpy.unique(ntw.network_component_labels)</span>
-<span class="sd">    array([0], dtype=int32)</span>
+<span class="sd">    &gt;&gt;&gt; list(numpy.unique(ntw.network_component_labels))</span>
+<span class="sd">    [0]</span>
 <span class="sd">    </span>
 <span class="sd">    Show whether each component of the network is an isolated ring (or not).</span>
 <span class="sd">    </span>
@@ -374,8 +390,8 @@
 <span class="sd">    </span>
 <span class="sd">    &gt;&gt;&gt; ntw.graph_n_components</span>
 <span class="sd">    1</span>
-<span class="sd">    &gt;&gt;&gt; numpy.unique(ntw.graph_component_labels)</span>
-<span class="sd">    array([0], dtype=int32)</span>
+<span class="sd">    &gt;&gt;&gt; list(numpy.unique(ntw.graph_component_labels))</span>
+<span class="sd">    [0]</span>
 <span class="sd">    &gt;&gt;&gt; ntw.graph_component_is_ring</span>
 <span class="sd">    {0: False}</span>
 <span class="sd">    &gt;&gt;&gt; edges = len(ntw.graph_component2edge[ntw.graph_component_labels[0]])</span>
@@ -413,6 +429,8 @@
         <span class="n">extractgraph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">w_components</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">weightings</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">weights_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span>
+        <span class="n">vertex_atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 
         <span class="c1"># do this when creating a clean network instance from a</span>
@@ -423,6 +441,7 @@
             <span class="c1"># set parameters as attributes</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">in_data</span> <span class="o">=</span> <span class="n">in_data</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vertex_sig</span> <span class="o">=</span> <span class="n">vertex_sig</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vertex_atol</span> <span class="o">=</span> <span class="n">vertex_atol</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">unique_arcs</span> <span class="o">=</span> <span class="n">unique_arcs</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">adjacencylist</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
@@ -445,7 +464,7 @@
                 <span class="n">as_graph</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">network_weightings</span> <span class="o">=</span> <span class="kc">False</span>
 
-                <span class="k">if</span> <span class="n">weightings</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">weightings</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
                     <span class="c1"># set network arc weights to length if weights are</span>
                     <span class="c1"># desired, but no other input in given</span>
                     <span class="n">weightings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arc_lengths</span>
@@ -453,7 +472,7 @@
 
                 <span class="c1"># extract contiguity weights from libpysal</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">w_network</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contiguityweights</span><span class="p">(</span>
-                    <span class="n">graph</span><span class="o">=</span><span class="n">as_graph</span><span class="p">,</span> <span class="n">weightings</span><span class="o">=</span><span class="n">weightings</span>
+                    <span class="n">graph</span><span class="o">=</span><span class="n">as_graph</span><span class="p">,</span> <span class="n">weightings</span><span class="o">=</span><span class="n">weightings</span><span class="p">,</span> <span class="n">weights_kws</span><span class="o">=</span><span class="n">weights_kws</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="c1"># identify connected components from the `w_network`</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">identify_components</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w_network</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">as_graph</span><span class="p">)</span>
@@ -470,7 +489,7 @@
                         <span class="n">weightings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_lengths</span>
 
                     <span class="bp">self</span><span class="o">.</span><span class="n">w_graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contiguityweights</span><span class="p">(</span>
-                        <span class="n">graph</span><span class="o">=</span><span class="n">as_graph</span><span class="p">,</span> <span class="n">weightings</span><span class="o">=</span><span class="n">weightings</span>
+                        <span class="n">graph</span><span class="o">=</span><span class="n">as_graph</span><span class="p">,</span> <span class="n">weightings</span><span class="o">=</span><span class="n">weightings</span><span class="p">,</span> <span class="n">weights_kws</span><span class="o">=</span><span class="n">weights_kws</span><span class="p">,</span>
                     <span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">identify_components</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w_graph</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">as_graph</span><span class="p">)</span>
 
@@ -512,6 +531,9 @@
             <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">v</span>
         <span class="p">]</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_atol</span><span class="p">:</span>
+            <span class="n">out_v</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_atol</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">out_v</span><span class="p">]</span>
+
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">out_v</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Network.identify_components"><a class="viewcode-back" href="../../generated/spaghetti.Network.html#spaghetti.Network.identify_components">[docs]</a>    <span class="k">def</span> <span class="nf">identify_components</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -545,18 +567,18 @@
 
         <span class="c1"># is the network a single, fully-connected component?</span>
         <span class="k">if</span> <span class="n">n_components</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">fully_connected</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1">################################# TEST</span>
+            <span class="n">fully_connected</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">fully_connected</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1">################################## TEST</span>
+            <span class="n">fully_connected</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># link to component lookup</span>
         <span class="n">link2component</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">links</span><span class="p">,</span> <span class="n">component_labels</span><span class="p">))</span>
 
         <span class="c1"># component ID lookups: links, lengths, vertices, vertex counts</span>
         <span class="n">component2link</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">component_lengths</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">######################################### TEST</span>
-        <span class="n">component_vertices</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">######################################### TEST</span>
-        <span class="n">component_vertex_count</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">###################################### TEST</span>
+        <span class="n">component_lengths</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">component_vertices</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">component_vertex_count</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">cp_labs_</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">component_labels</span><span class="p">)</span>
         <span class="n">l2c_</span> <span class="o">=</span> <span class="n">link2component</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">cpl</span> <span class="ow">in</span> <span class="n">cp_labs_</span><span class="p">:</span>
@@ -567,12 +589,12 @@
             <span class="n">component_vertices</span><span class="p">[</span><span class="n">cpl</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">v</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">c2l_</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">l</span><span class="p">]))</span>
             <span class="n">component_vertex_count</span><span class="p">[</span><span class="n">cpl</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">component_vertices</span><span class="p">[</span><span class="n">cpl</span><span class="p">])</span>
 
-        <span class="c1"># longest and largest components ############################################################### TEST</span>
+        <span class="c1"># longest and largest components</span>
         <span class="n">longest_component</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">component_lengths</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">component_lengths</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
         <span class="n">largest_component</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">component_vertex_count</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">component_vertex_count</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
 
         <span class="c1"># component to ring lookup</span>
-        <span class="n">component_is_ring</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">###################################### TEST</span>
+        <span class="n">component_is_ring</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">adj_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjacencylist</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">comp</span><span class="p">,</span> <span class="n">verts</span> <span class="ow">in</span> <span class="n">component_vertices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">component_is_ring</span><span class="p">[</span><span class="n">comp</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
@@ -974,7 +996,7 @@
 
         <span class="k">return</span> <span class="n">nodes</span>
 
-<div class="viewcode-block" id="Network.contiguityweights"><a class="viewcode-back" href="../../generated/spaghetti.Network.html#spaghetti.Network.contiguityweights">[docs]</a>    <span class="k">def</span> <span class="nf">contiguityweights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weightings</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.contiguityweights"><a class="viewcode-back" href="../../generated/spaghetti.Network.html#spaghetti.Network.contiguityweights">[docs]</a>    <span class="k">def</span> <span class="nf">contiguityweights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weightings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weights_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">()):</span>
         <span class="sd">&quot;&quot;&quot;Create a contiguity-based ``libpysal.weights.W`` object.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
@@ -985,14 +1007,22 @@
 <span class="sd">            using the spatial representation (``False``) or the graph</span>
 <span class="sd">            representation (``True``). Default is ``True``.</span>
 <span class="sd">        </span>
-<span class="sd">        weightings : dict</span>
+<span class="sd">        weightings : {dict, None}</span>
 <span class="sd">            Dictionary of lists of weightings for each arc/edge.</span>
+<span class="sd">        </span>
+<span class="sd">        weights_kws : dict</span>
+<span class="sd">            Keyword arguments for ``libpysal.weights.W``.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        </span>
 <span class="sd">         W : libpysal.weights.W</span>
 <span class="sd">            A ``W`` representing the binary adjacency of the network.</span>
+<span class="sd">        </span>
+<span class="sd">        See also</span>
+<span class="sd">        --------</span>
+<span class="sd">        </span>
+<span class="sd">        libpysal.weights.W</span>
 <span class="sd">        </span>
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -1043,7 +1073,7 @@
 <span class="sd">        3.0</span>
 <span class="sd">        </span>
 <span class="sd">        Next, a standard call to </span>
-<span class="sd">        `esda.Moran &lt;https://esda.readthedocs.io/en/latest/generated/esda.Moran.html#esda.Moran&gt;`_ </span>
+<span class="sd">        `esda.Moran &lt;https://esda.readthedocs.io/en/latest/generated/esda.Moran.html#esda.Moran&gt;`_</span>
 <span class="sd">        is made and the result placed into ``res``.</span>
 <span class="sd">        </span>
 <span class="sd">        &gt;&gt;&gt; res = esda.moran.Moran(y, w, permutations=99)</span>
@@ -1119,7 +1149,8 @@
                 <span class="n">working</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># call libpysal for `W` instance</span>
-        <span class="n">w</span> <span class="o">=</span> <span class="n">weights</span><span class="o">.</span><span class="n">W</span><span class="p">(</span><span class="n">neighbors</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">_weights</span><span class="p">)</span>
+        <span class="n">weights_kws</span><span class="p">[</span><span class="s2">&quot;weights&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_weights</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">weights</span><span class="o">.</span><span class="n">W</span><span class="p">(</span><span class="n">neighbors</span><span class="p">,</span> <span class="o">**</span><span class="n">weights_kws</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">w</span></div>
 
@@ -1153,6 +1184,11 @@
 <span class="sd">        </span>
 <span class="sd">        See :cite:`AnselinRey2014` and :cite:`rey_open_2015` for more details</span>
 <span class="sd">        regarding spatial weights.</span>
+<span class="sd">        </span>
+<span class="sd">        See also</span>
+<span class="sd">        --------</span>
+<span class="sd">        </span>
+<span class="sd">        libpysal.weights.W</span>
 <span class="sd">        </span>
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -1385,7 +1421,7 @@
 
             <span class="c1"># create a pysal.cg.Chain object of the arc</span>
             <span class="c1"># and add it to the arcs enumerator</span>
-            <span class="n">arcs_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">Chain</span><span class="p">([</span><span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">]))</span>
+            <span class="n">arcs_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">util</span><span class="o">.</span><span class="n">_chain_constr</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">]))</span>
 
             <span class="c1"># add the arc into the snapped(point)-to-arc lookup</span>
             <span class="n">s2a</span><span class="p">[(</span><span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">)]</span> <span class="o">=</span> <span class="n">arc</span>
@@ -1553,6 +1589,8 @@
 
             <span class="c1"># if the vertical direction is negative from</span>
             <span class="c1"># vertex 1 to vertex 2 on the euclidean plane</span>
+            <span class="c1"># -- this shouldn&#39;t happen due to vertex sorting in</span>
+            <span class="c1"># -- self._extractnetwork() and self.extractgraph()</span>
             <span class="k">elif</span> <span class="n">y1</span> <span class="o">&gt;</span> <span class="n">y2</span><span class="p">:</span>
                 <span class="n">y0</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">+</span> <span class="n">distance</span>
 
@@ -2419,10 +2457,9 @@
 
                 <span class="c1"># create copy of arc paths dataframe</span>
                 <span class="n">full_segments</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">_v0</span><span class="p">,</span> <span class="n">_v1</span> <span class="ow">in</span> <span class="n">full_segs_path</span><span class="p">:</span>
-                    <span class="n">full_segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="n">cg</span><span class="o">.</span><span class="n">Chain</span><span class="p">([</span><span class="n">cg</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">vtx_coords</span><span class="p">[</span><span class="n">_v0</span><span class="p">]),</span> <span class="n">cg</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">vtx_coords</span><span class="p">[</span><span class="n">_v1</span><span class="p">])])</span>
-                    <span class="p">)</span>
+                <span class="k">for</span> <span class="n">fsp</span> <span class="ow">in</span> <span class="n">full_segs_path</span><span class="p">:</span>
+                    <span class="n">full_segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">util</span><span class="o">.</span><span class="n">_chain_constr</span><span class="p">(</span><span class="n">vtx_coords</span><span class="p">,</span> <span class="n">fsp</span><span class="p">))</span>
+
                 <span class="c1"># unpack the vertices containers</span>
                 <span class="n">segm_verts</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">fs</span> <span class="ow">in</span> <span class="n">full_segments</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">fs</span><span class="o">.</span><span class="n">vertices</span><span class="p">]</span>
 
@@ -2448,7 +2485,7 @@
                 <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_vtx</span><span class="p">]</span> <span class="o">+</span> <span class="n">segm_verts</span> <span class="o">+</span> <span class="p">[</span><span class="n">last_vtx</span><span class="p">]</span>
 
             <span class="c1"># populate the ``paths`` dataframe</span>
-            <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">([(</span><span class="n">obs0</span><span class="p">,</span> <span class="n">obs1</span><span class="p">),</span> <span class="n">cg</span><span class="o">.</span><span class="n">Chain</span><span class="p">(</span><span class="n">path</span><span class="p">)])</span>
+            <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">([(</span><span class="n">obs0</span><span class="p">,</span> <span class="n">obs1</span><span class="p">),</span> <span class="n">util</span><span class="o">.</span><span class="n">_chain_constr</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="p">)])</span>
 
         <span class="k">return</span> <span class="n">paths</span></div>
 
@@ -2617,7 +2654,9 @@
         <span class="n">lowerbound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">upperbound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Compute a network constrained `F`-function.</span>
+        <span class="sd">&quot;&quot;&quot;Compute a network constrained `F`-function, which is</span>
+<span class="sd">        a cumulative frequency distribution of random distances</span>
+<span class="sd">        within a set of observations associated with a network.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2657,8 +2696,19 @@
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
 <span class="sd">        </span>
-<span class="sd">        Based on :cite:`doi:10.1002/9780470549094.ch5` and mentioned in</span>
-<span class="sd">        :cite:`doi:10.1002/9781119967101.ch5`.</span>
+<span class="sd">        This is a network-constrained version </span>
+<span class="sd">        based on the Euclidean formulation found in </span>
+<span class="sd">        :cite:`doi:10.1002/9780470549094.ch5` and mentioned in</span>
+<span class="sd">        :cite:`doi:10.1002/9781119967101.ch5`. It is formulated in </span>
+<span class="sd">        :cite:`doi:10.1002/9780470549094.ch5` as:</span>
+<span class="sd">        </span>
+<span class="sd">        .. math::</span>
+<span class="sd">            </span>
+<span class="sd">            F(d) = \\frac{\\#[d_{min}(p_i, S)&lt;d]}{m}</span>
+<span class="sd">        </span>
+<span class="sd">        where $p_i$ are randomly selected observations totaling $m$ in </span>
+<span class="sd">        $S$ and $d$ is each step of distance along the network. </span>
+<span class="sd">        </span>
 <span class="sd">        </span>
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -2671,19 +2721,19 @@
 <span class="sd">        </span>
 <span class="sd">        Snap observation points onto the network.</span>
 <span class="sd">        </span>
-<span class="sd">        &gt;&gt;&gt; pt_str = &quot;crimes&quot;</span>
+<span class="sd">        &gt;&gt;&gt; pt_str = &quot;schools&quot;</span>
 <span class="sd">        &gt;&gt;&gt; in_data = examples.get_path(pt_str+&quot;.shp&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; ntw.snapobservations(in_data, pt_str, attribute=True)</span>
 <span class="sd">        </span>
 <span class="sd">        Simulate observations along the network.</span>
 <span class="sd">        </span>
-<span class="sd">        &gt;&gt;&gt; crimes = ntw.pointpatterns[pt_str]</span>
-<span class="sd">        &gt;&gt;&gt; sim = ntw.simulate_observations(crimes.npoints)</span>
+<span class="sd">        &gt;&gt;&gt; schools = ntw.pointpatterns[pt_str]</span>
+<span class="sd">        &gt;&gt;&gt; sim = ntw.simulate_observations(schools.npoints)</span>
 <span class="sd">        </span>
-<span class="sd">        Compute a network constrained `F`-function of crimes </span>
+<span class="sd">        Compute a network constrained `F`-function of schools </span>
 <span class="sd">        with ``5`` ``permutations`` and ``10`` ``nsteps``.</span>
 <span class="sd">        </span>
-<span class="sd">        &gt;&gt;&gt; fres = ntw.NetworkF(crimes, permutations=5, nsteps=10)</span>
+<span class="sd">        &gt;&gt;&gt; fres = ntw.NetworkF(schools, permutations=5, nsteps=10)</span>
 <span class="sd">        &gt;&gt;&gt; fres.lowerenvelope.shape[0]</span>
 <span class="sd">        10</span>
 <span class="sd">        </span>
@@ -2711,7 +2761,9 @@
         <span class="n">lowerbound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">upperbound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Compute a network constrained `G`-function.</span>
+        <span class="sd">&quot;&quot;&quot;Compute a network constrained `G`-function, which is</span>
+<span class="sd">        a cumulative frequency distribution of nearest neighbor distances</span>
+<span class="sd">        within a set of observations associated with a network.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2751,10 +2803,21 @@
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
 <span class="sd">        </span>
-<span class="sd">        Based on :cite:`doi:10.1002/9780470549094.ch5` and mentioned in</span>
-<span class="sd">        :cite:`doi:10.1002/9781119967101.ch5`.</span>
+<span class="sd">        This is a network-constrained version </span>
+<span class="sd">        based on the Euclidean formulation found in </span>
+<span class="sd">        :cite:`doi:10.1002/9780470549094.ch5` and mentioned in</span>
+<span class="sd">        :cite:`doi:10.1002/9781119967101.ch5`. It is formulated in </span>
+<span class="sd">        :cite:`doi:10.1002/9780470549094.ch5` as:</span>
 <span class="sd">        </span>
-<span class="sd">        [note from `jlaura`] Both the `G` and `K` functions generate a</span>
+<span class="sd">        .. math::</span>
+<span class="sd">          </span>
+<span class="sd">          G(d) = \\frac{\\#(d_{min}(s_i)&lt;d)}{n}</span>
+<span class="sd">        </span>
+<span class="sd">        where $s_i$ are observations totaling $n$ in $S$ and $d$ is</span>
+<span class="sd">        each step of distance along the network.</span>
+<span class="sd">        </span>
+<span class="sd">        **[note from `jlaura`]**</span>
+<span class="sd">        Both the `G` and `K` functions generate a</span>
 <span class="sd">        full distance matrix.  This is because, I know that the full </span>
 <span class="sd">        generation is correct and I believe that the truncated generated, </span>
 <span class="sd">        e.g. nearest neighbor, has a bug.</span>
@@ -2770,19 +2833,19 @@
 <span class="sd">        </span>
 <span class="sd">        Snap observation points onto the network.</span>
 <span class="sd">        </span>
-<span class="sd">        &gt;&gt;&gt; pt_str = &quot;crimes&quot;</span>
+<span class="sd">        &gt;&gt;&gt; pt_str = &quot;schools&quot;</span>
 <span class="sd">        &gt;&gt;&gt; in_data = examples.get_path(pt_str+&quot;.shp&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; ntw.snapobservations(in_data, pt_str, attribute=True)</span>
 <span class="sd">        </span>
 <span class="sd">        Simulate observations along the network.</span>
 <span class="sd">        </span>
-<span class="sd">        &gt;&gt;&gt; crimes = ntw.pointpatterns[pt_str]</span>
-<span class="sd">        &gt;&gt;&gt; sim = ntw.simulate_observations(crimes.npoints)</span>
+<span class="sd">        &gt;&gt;&gt; schools = ntw.pointpatterns[pt_str]</span>
+<span class="sd">        &gt;&gt;&gt; sim = ntw.simulate_observations(schools.npoints)</span>
 <span class="sd">        </span>
-<span class="sd">        Compute a network constrained `G`-function of crimes </span>
+<span class="sd">        Compute a network constrained `G`-function of schools </span>
 <span class="sd">        with ``5`` ``permutations`` and ``10`` ``nsteps``.</span>
 <span class="sd">        </span>
-<span class="sd">        &gt;&gt;&gt; gres = ntw.NetworkG(crimes, permutations=5, nsteps=10)</span>
+<span class="sd">        &gt;&gt;&gt; gres = ntw.NetworkG(schools, permutations=5, nsteps=10)</span>
 <span class="sd">        &gt;&gt;&gt; gres.lowerenvelope.shape[0]</span>
 <span class="sd">        10</span>
 <span class="sd">        </span>
@@ -2810,7 +2873,7 @@
         <span class="n">lowerbound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">upperbound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Compute a network constrained `K`-function.</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute a network constrained `K`-function.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2850,10 +2913,13 @@
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
 <span class="sd">        </span>
-<span class="sd">        Based on :cite:`doi:10.1111/j.1538-4632.2001.tb00448.x` </span>
-<span class="sd">        and :cite:`doi:10.1002/9781119967101.ch6`.</span>
+<span class="sd">        Based on :cite:`Ripley1977`, </span>
+<span class="sd">        :cite:`doi:10.1002/9780470549094.ch5`,</span>
+<span class="sd">        :cite:`doi:10.1111/j.1538-4632.2001.tb00448.x`,</span>
+<span class="sd">        and :cite:`doi:10.1002/9781119967101.ch6`. </span>
 <span class="sd">        </span>
-<span class="sd">        [note from `jlaura`] Both the `G` and `K` functions generate a</span>
+<span class="sd">        **[note from `jlaura`]**</span>
+<span class="sd">        Both the `G` and `K` functions generate a</span>
 <span class="sd">        full distance matrix.  This is because, I know that the full </span>
 <span class="sd">        generation is correct and I believe that the truncated generated, </span>
 <span class="sd">        e.g. nearest neighbor, has a bug.</span>
@@ -2869,19 +2935,19 @@
 <span class="sd">        </span>
 <span class="sd">        Snap observation points onto the network.</span>
 <span class="sd">        </span>
-<span class="sd">        &gt;&gt;&gt; pt_str = &quot;crimes&quot;</span>
+<span class="sd">        &gt;&gt;&gt; pt_str = &quot;schools&quot;</span>
 <span class="sd">        &gt;&gt;&gt; in_data = examples.get_path(pt_str+&quot;.shp&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; ntw.snapobservations(in_data, pt_str, attribute=True)</span>
 <span class="sd">        </span>
 <span class="sd">        Simulate observations along the network.</span>
 <span class="sd">        </span>
-<span class="sd">        &gt;&gt;&gt; crimes = ntw.pointpatterns[pt_str]</span>
-<span class="sd">        &gt;&gt;&gt; sim = ntw.simulate_observations(crimes.npoints)</span>
+<span class="sd">        &gt;&gt;&gt; schools = ntw.pointpatterns[pt_str]</span>
+<span class="sd">        &gt;&gt;&gt; sim = ntw.simulate_observations(schools.npoints)</span>
 <span class="sd">        </span>
-<span class="sd">        Compute a network constrained `K`-function of crimes </span>
+<span class="sd">        Compute a network constrained `K`-function of schools </span>
 <span class="sd">        with ``5`` ``permutations`` and ``10`` ``nsteps``.</span>
 <span class="sd">        </span>
-<span class="sd">        &gt;&gt;&gt; kres = ntw.NetworkK(crimes, permutations=5, nsteps=10)</span>
+<span class="sd">        &gt;&gt;&gt; kres = ntw.NetworkK(schools, permutations=5, nsteps=10)</span>
 <span class="sd">        &gt;&gt;&gt; kres.lowerenvelope.shape[0]</span>
 <span class="sd">        10</span>
 <span class="sd">        </span>
@@ -3157,6 +3223,147 @@
     <span class="k">return</span> <span class="n">cnet</span></div>
 
 
+<div class="viewcode-block" id="spanning_tree"><a class="viewcode-back" href="../../generated/spaghetti.spanning_tree.html#spaghetti.spanning_tree">[docs]</a><span class="k">def</span> <span class="nf">spanning_tree</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;sort&quot;</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">silence_warnings</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extract a minimum or maximum spanning tree from a network.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    net : spaghetti.Network</span>
+<span class="sd">        Instance of a network object.</span>
+<span class="sd">    </span>
+<span class="sd">    method : str</span>
+<span class="sd">        Method for determining spanning tree. Currently, the only</span>
+<span class="sd">        supported method is &#39;sort&#39;, which sorts the network arcs</span>
+<span class="sd">        by length prior to building intermediary networks and checking</span>
+<span class="sd">        for cycles within the tree/subtrees. Future methods may </span>
+<span class="sd">        include linear programming approachs, etc.</span>
+<span class="sd">    </span>
+<span class="sd">    maximum : bool</span>
+<span class="sd">        When ``True`` a maximum spanning tree is created. When ``False``</span>
+<span class="sd">        a minimum spanning tree is created. Default is ``False``.</span>
+<span class="sd">    </span>
+<span class="sd">    silence_warnings : bool</span>
+<span class="sd">        Warn if there is more than one connected component. Default is</span>
+<span class="sd">        ``False`` due to the nature of constructing a minimum</span>
+<span class="sd">        spanning tree.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    net : spaghetti.Network</span>
+<span class="sd">        Pruned instance of the network object.</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    For in-depth background and details see</span>
+<span class="sd">    :cite:`GrahamHell_1985`,</span>
+<span class="sd">    :cite:`AhujaRavindraK`, and</span>
+<span class="sd">    :cite:`Okabe2012`.</span>
+<span class="sd">    </span>
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    </span>
+<span class="sd">    networkx.algorithms.tree.mst</span>
+<span class="sd">    scipy.sparse.csgraph.minimum_spanning_tree</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    </span>
+<span class="sd">    Create a network instance.</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; from libpysal import cg</span>
+<span class="sd">    &gt;&gt;&gt; import spaghetti</span>
+<span class="sd">    &gt;&gt;&gt; p00 = cg.Point((0,0))</span>
+<span class="sd">    &gt;&gt;&gt; lines = [cg.Chain([p00, cg.Point((0,3)), cg.Point((4,0)), p00])]</span>
+<span class="sd">    &gt;&gt;&gt; ntw = spaghetti.Network(in_data=lines)</span>
+<span class="sd">    </span>
+<span class="sd">    Extract the minimum spanning tree.</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; minst_net = spaghetti.spanning_tree(ntw)</span>
+<span class="sd">    &gt;&gt;&gt; min_len = sum(minst_net.arc_lengths.values())</span>
+<span class="sd">    &gt;&gt;&gt; min_len</span>
+<span class="sd">    7.0</span>
+<span class="sd">    </span>
+<span class="sd">    Extract the maximum spanning tree.</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; maxst_net = spaghetti.spanning_tree(ntw, maximum=True)</span>
+<span class="sd">    &gt;&gt;&gt; max_len = sum(maxst_net.arc_lengths.values())</span>
+<span class="sd">    &gt;&gt;&gt; max_len</span>
+<span class="sd">    9.0</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; max_len &gt; min_len</span>
+<span class="sd">    True</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># (un)silence warning</span>
+    <span class="n">weights_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;silence_warnings&quot;</span><span class="p">:</span> <span class="n">silence_warnings</span><span class="p">}</span>
+    <span class="c1"># do not extract graph object while testing for cycles</span>
+    <span class="n">net_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;extractgraph&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;weights_kws&quot;</span><span class="p">:</span> <span class="n">weights_kws</span><span class="p">}</span>
+
+    <span class="c1"># if the network has no cycles, it is already a spanning tree</span>
+    <span class="k">if</span> <span class="n">util</span><span class="o">.</span><span class="n">network_has_cycle</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">adjacencylist</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;sort&quot;</span><span class="p">:</span>
+            <span class="n">spanning_tree</span> <span class="o">=</span> <span class="n">mst_weighted_sort</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">maximum</span><span class="p">,</span> <span class="n">net_kws</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; not a valid method for minimum spanning tree creation&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
+
+        <span class="c1"># instantiate the spanning tree as a network object</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">in_data</span><span class="o">=</span><span class="n">spanning_tree</span><span class="p">,</span> <span class="n">weights_kws</span><span class="o">=</span><span class="n">weights_kws</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">net</span></div>
+
+
+<span class="k">def</span> <span class="nf">mst_weighted_sort</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">maximum</span><span class="p">,</span> <span class="n">net_kws</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extract a minimum or maximum spanning tree from a network used</span>
+<span class="sd">    the length-weighted sort method.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    net : spaghetti.Network</span>
+<span class="sd">        See ``spanning_tree()``.</span>
+<span class="sd">    maximum : bool</span>
+<span class="sd">        See ``spanning_tree()``.</span>
+<span class="sd">    net_kws : dict</span>
+<span class="sd">        Keywords arguments for instaniating a ``spaghetti.Network``.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    spanning_tree : list</span>
+<span class="sd">        All networks arcs that are members of the spanning tree.</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function is based on the method found in Chapter 3</span>
+<span class="sd">    Section 4.3 of :cite:`Okabe2012`.</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># network arcs dictionary sorted by arc length</span>
+    <span class="n">sort_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="n">net</span><span class="o">.</span><span class="n">arc_lengths</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="s2">&quot;reverse&quot;</span><span class="p">:</span> <span class="n">maximum</span><span class="p">}</span>
+    <span class="n">sorted_lengths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">arc_lengths</span><span class="p">,</span> <span class="o">**</span><span class="n">sort_kws</span><span class="p">)</span>
+
+    <span class="c1"># the spanning tree is initially empty</span>
+    <span class="n">spanning_tree</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># iterate over each lengths of network arc</span>
+    <span class="k">while</span> <span class="n">sorted_lengths</span><span class="p">:</span>
+        <span class="n">_arc</span> <span class="o">=</span> <span class="n">sorted_lengths</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># make a spatial representation of an arc</span>
+        <span class="n">chain_rep</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">chain_constr</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">vertex_coords</span><span class="p">,</span> <span class="p">[</span><span class="n">_arc</span><span class="p">])</span>
+        <span class="c1"># current set of network arcs as libpysal.cg.Chain</span>
+        <span class="n">_chains</span> <span class="o">=</span> <span class="n">spanning_tree</span> <span class="o">+</span> <span class="n">chain_rep</span>
+        <span class="c1"># current network iteration</span>
+        <span class="n">_ntw</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">in_data</span><span class="o">=</span><span class="n">_chains</span><span class="p">,</span> <span class="o">**</span><span class="n">net_kws</span><span class="p">)</span>
+        <span class="c1"># determine if the network contains a cycle</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">util</span><span class="o">.</span><span class="n">network_has_cycle</span><span class="p">(</span><span class="n">_ntw</span><span class="o">.</span><span class="n">adjacencylist</span><span class="p">):</span>
+            <span class="c1"># If no cycle is present, add the arc to the spanning tree</span>
+            <span class="n">spanning_tree</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">chain_rep</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">spanning_tree</span>
+
+
 <div class="viewcode-block" id="element_as_gdf"><a class="viewcode-back" href="../../generated/spaghetti.element_as_gdf.html#spaghetti.element_as_gdf">[docs]</a><span class="nd">@requires</span><span class="p">(</span><span class="s2">&quot;geopandas&quot;</span><span class="p">,</span> <span class="s2">&quot;shapely&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">element_as_gdf</span><span class="p">(</span>
     <span class="n">net</span><span class="p">,</span>
@@ -3245,7 +3452,11 @@
 <span class="sd">    declaration must be in the order: &lt;vertices&gt;, &lt;arcs&gt;. </span>
 <span class="sd">    This function requires ``geopandas``.</span>
 <span class="sd">    </span>
-<span class="sd">    </span>
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">        </span>
+<span class="sd">    geopandas.GeoDataFrame</span>
+<span class="sd">        </span>
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    </span>
@@ -3366,13 +3577,13 @@
 <span class="sd">    [(3.75, 3.75), (3.75, 5.0)]</span>
 <span class="sd">    </span>
 <span class="sd">    Create a 7x9 regular lattice with an exterior from the </span>
-<span class="sd">    bounds of ``newhaven_nework.shp``.</span>
+<span class="sd">    bounds of ``streets.shp``.</span>
 <span class="sd">    </span>
-<span class="sd">    &gt;&gt;&gt; path = libpysal.examples.get_path(&quot;newhaven_nework.shp&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; path = libpysal.examples.get_path(&quot;streets.shp&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; shp = libpysal.io.open(path)</span>
 <span class="sd">    &gt;&gt;&gt; lattice = spaghetti.regular_lattice(shp.bbox, 5, nv=7, exterior=True)</span>
 <span class="sd">    &gt;&gt;&gt; lattice[0].vertices</span>
-<span class="sd">    [(-72.99783297382338, 41.247205), (-72.97499854017013, 41.247205)]</span>
+<span class="sd">    [(723414.3683108028, 875929.0396895551), (724286.1381211297, 875929.0396895551)]</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -3643,7 +3854,7 @@
     </p>
     <p>
         &copy; Copyright 2018, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.<br/>
     </p>
   </div>
 </footer>

@@ -61,6 +61,14 @@ class Network:
         ``True`` flags ``self.arc_lengths`` as the weightings,
         ``False`` sets no weightings. Default is ``False``.
     
+    weights_kws : dict
+        Keyword arguments for ``libpysal.weights.W``.
+    
+    vertex_atol : {int, None}
+        Precision for vertex absolute tolerance. Round vertex coordinates to
+        ``vertex_atol`` decimal places. Default is ``None``. **ONLY** change
+        the default when there are known issues with digitization.
+    
     Attributes
     ----------
     
@@ -89,19 +97,24 @@ class Network:
         ``PointPattern`` class instances.
     
     distance_matrix : numpy.ndarray
-        All network vertices (non-observations) distance matrix.
+        All network vertices (non-observations) distance matrix. Distances
+        between vertices in disparate components are recorded as ``inf``
+        by default.
     
     network_trees : dict
-        Keys are the vertex IDs (int). Values are dictionaries
+        Keys are the vertex IDs (``int``). Values are dictionaries
         with the keys being the IDs of the destination vertex
-        and the value being a list of the shortest path.
+        and values being lists of vertices along the shortest path. 
+        If the destination vertex is a) the origin or b) 
+        unreachable (disparate component) it is listed as itself being the
+        neighbor.
     
     edges : list
         Tuples of graph edge IDs.
     
     edge_lengths : dict
-        Keys are the graph edge IDs (tuple). Values are the graph edge
-        length (float).
+        Keys are the graph edge IDs (``tuple``). Values are the
+        graph edge length (``float``).
     
     non_articulation_points : list
         All vertices with degree 2 that are not in an isolated
@@ -227,8 +240,8 @@ class Network:
     Unique component labels in the network.
     
     >>> import numpy
-    >>> numpy.unique(ntw.network_component_labels)
-    array([0], dtype=int32)
+    >>> list(numpy.unique(ntw.network_component_labels))
+    [0]
     
     Show whether each component of the network is an isolated ring (or not).
     
@@ -246,8 +259,8 @@ class Network:
     
     >>> ntw.graph_n_components
     1
-    >>> numpy.unique(ntw.graph_component_labels)
-    array([0], dtype=int32)
+    >>> list(numpy.unique(ntw.graph_component_labels))
+    [0]
     >>> ntw.graph_component_is_ring
     {0: False}
     >>> edges = len(ntw.graph_component2edge[ntw.graph_component_labels[0]])
@@ -285,6 +298,8 @@ class Network:
         extractgraph=True,
         w_components=True,
         weightings=False,
+        weights_kws=dict(),
+        vertex_atol=None,
     ):
 
         # do this when creating a clean network instance from a
@@ -295,6 +310,7 @@ class Network:
             # set parameters as attributes
             self.in_data = in_data
             self.vertex_sig = vertex_sig
+            self.vertex_atol = vertex_atol
             self.unique_arcs = unique_arcs
 
             self.adjacencylist = defaultdict(list)
@@ -317,7 +333,7 @@ class Network:
                 as_graph = False
                 network_weightings = False
 
-                if weightings is True:
+                if weightings == True:
                     # set network arc weights to length if weights are
                     # desired, but no other input in given
                     weightings = self.arc_lengths
@@ -325,7 +341,7 @@ class Network:
 
                 # extract contiguity weights from libpysal
                 self.w_network = self.contiguityweights(
-                    graph=as_graph, weightings=weightings
+                    graph=as_graph, weightings=weightings, weights_kws=weights_kws,
                 )
                 # identify connected components from the `w_network`
                 self.identify_components(self.w_network, graph=as_graph)
@@ -342,7 +358,7 @@ class Network:
                         weightings = self.edge_lengths
 
                     self.w_graph = self.contiguityweights(
-                        graph=as_graph, weightings=weightings
+                        graph=as_graph, weightings=weightings, weights_kws=weights_kws,
                     )
                     self.identify_components(self.w_graph, graph=as_graph)
 
@@ -384,6 +400,9 @@ class Network:
             for val in v
         ]
 
+        if self.vertex_atol:
+            out_v = [round(v, self.vertex_atol) for v in out_v]
+
         return tuple(out_v)
 
     def identify_components(self, w, graph=False):
@@ -417,18 +436,18 @@ class Network:
 
         # is the network a single, fully-connected component?
         if n_components == 1:
-            fully_connected = True  ################################# TEST
+            fully_connected = True
         else:
-            fully_connected = False  ################################## TEST
+            fully_connected = False
 
         # link to component lookup
         link2component = dict(zip(links, component_labels))
 
         # component ID lookups: links, lengths, vertices, vertex counts
         component2link = {}
-        component_lengths = {}  ######################################### TEST
-        component_vertices = {}  ######################################### TEST
-        component_vertex_count = {}  ###################################### TEST
+        component_lengths = {}
+        component_vertices = {}
+        component_vertex_count = {}
         cp_labs_ = set(w.component_labels)
         l2c_ = link2component.items()
         for cpl in cp_labs_:
@@ -439,12 +458,12 @@ class Network:
             component_vertices[cpl] = list(set([v for l in c2l_ for v in l]))
             component_vertex_count[cpl] = len(component_vertices[cpl])
 
-        # longest and largest components ############################################################### TEST
+        # longest and largest components
         longest_component = max(component_lengths, key=component_lengths.get)
         largest_component = max(component_vertex_count, key=component_vertex_count.get)
 
         # component to ring lookup
-        component_is_ring = {}  ###################################### TEST
+        component_is_ring = {}
         adj_ = self.adjacencylist.items()
         for comp, verts in component_vertices.items():
             component_is_ring[comp] = False
@@ -846,7 +865,7 @@ class Network:
 
         return nodes
 
-    def contiguityweights(self, graph=True, weightings=None):
+    def contiguityweights(self, graph=True, weightings=None, weights_kws=dict()):
         """Create a contiguity-based ``libpysal.weights.W`` object.
         
         Parameters
@@ -857,14 +876,22 @@ class Network:
             using the spatial representation (``False``) or the graph
             representation (``True``). Default is ``True``.
         
-        weightings : dict
+        weightings : {dict, None}
             Dictionary of lists of weightings for each arc/edge.
+        
+        weights_kws : dict
+            Keyword arguments for ``libpysal.weights.W``.
         
         Returns
         -------
         
          W : libpysal.weights.W
             A ``W`` representing the binary adjacency of the network.
+        
+        See also
+        --------
+        
+        libpysal.weights.W
         
         Examples
         --------
@@ -915,7 +942,7 @@ class Network:
         3.0
         
         Next, a standard call to 
-        `esda.Moran <https://esda.readthedocs.io/en/latest/generated/esda.Moran.html#esda.Moran>`_ 
+        `esda.Moran <https://esda.readthedocs.io/en/latest/generated/esda.Moran.html#esda.Moran>`_
         is made and the result placed into ``res``.
         
         >>> res = esda.moran.Moran(y, w, permutations=99)
@@ -991,7 +1018,8 @@ class Network:
                 working = False
 
         # call libpysal for `W` instance
-        w = weights.W(neighbors, weights=_weights)
+        weights_kws["weights"] = _weights
+        w = weights.W(neighbors, **weights_kws)
 
         return w
 
@@ -1025,6 +1053,11 @@ class Network:
         
         See :cite:`AnselinRey2014` and :cite:`rey_open_2015` for more details
         regarding spatial weights.
+        
+        See also
+        --------
+        
+        libpysal.weights.W
         
         Examples
         --------
@@ -1257,7 +1290,7 @@ class Network:
 
             # create a pysal.cg.Chain object of the arc
             # and add it to the arcs enumerator
-            arcs_.append(cg.Chain([head, tail]))
+            arcs_.append(util._chain_constr(None, [head, tail]))
 
             # add the arc into the snapped(point)-to-arc lookup
             s2a[(head, tail)] = arc
@@ -1425,6 +1458,8 @@ class Network:
 
             # if the vertical direction is negative from
             # vertex 1 to vertex 2 on the euclidean plane
+            # -- this shouldn't happen due to vertex sorting in
+            # -- self._extractnetwork() and self.extractgraph()
             elif y1 > y2:
                 y0 = y2 + distance
 
@@ -2291,10 +2326,9 @@ class Network:
 
                 # create copy of arc paths dataframe
                 full_segments = []
-                for _v0, _v1 in full_segs_path:
-                    full_segments.append(
-                        cg.Chain([cg.Point(vtx_coords[_v0]), cg.Point(vtx_coords[_v1])])
-                    )
+                for fsp in full_segs_path:
+                    full_segments.append(util._chain_constr(vtx_coords, fsp))
+
                 # unpack the vertices containers
                 segm_verts = [v for fs in full_segments for v in fs.vertices]
 
@@ -2320,7 +2354,7 @@ class Network:
                 path = [first_vtx] + segm_verts + [last_vtx]
 
             # populate the ``paths`` dataframe
-            paths.append([(obs0, obs1), cg.Chain(path)])
+            paths.append([(obs0, obs1), util._chain_constr(None, path)])
 
         return paths
 
@@ -2489,7 +2523,9 @@ class Network:
         lowerbound=None,
         upperbound=None,
     ):
-        """Compute a network constrained `F`-function.
+        """Compute a network constrained `F`-function, which is
+        a cumulative frequency distribution of random distances
+        within a set of observations associated with a network.
         
         Parameters
         ----------
@@ -2529,8 +2565,19 @@ class Network:
         Notes
         -----
         
-        Based on :cite:`doi:10.1002/9780470549094.ch5` and mentioned in
-        :cite:`doi:10.1002/9781119967101.ch5`.
+        This is a network-constrained version 
+        based on the Euclidean formulation found in 
+        :cite:`doi:10.1002/9780470549094.ch5` and mentioned in
+        :cite:`doi:10.1002/9781119967101.ch5`. It is formulated in 
+        :cite:`doi:10.1002/9780470549094.ch5` as:
+        
+        .. math::
+            
+            F(d) = \\frac{\\#[d_{min}(p_i, S)<d]}{m}
+        
+        where $p_i$ are randomly selected observations totaling $m$ in 
+        $S$ and $d$ is each step of distance along the network. 
+        
         
         Examples
         --------
@@ -2543,19 +2590,19 @@ class Network:
         
         Snap observation points onto the network.
         
-        >>> pt_str = "crimes"
+        >>> pt_str = "schools"
         >>> in_data = examples.get_path(pt_str+".shp")
         >>> ntw.snapobservations(in_data, pt_str, attribute=True)
         
         Simulate observations along the network.
         
-        >>> crimes = ntw.pointpatterns[pt_str]
-        >>> sim = ntw.simulate_observations(crimes.npoints)
+        >>> schools = ntw.pointpatterns[pt_str]
+        >>> sim = ntw.simulate_observations(schools.npoints)
         
-        Compute a network constrained `F`-function of crimes 
+        Compute a network constrained `F`-function of schools 
         with ``5`` ``permutations`` and ``10`` ``nsteps``.
         
-        >>> fres = ntw.NetworkF(crimes, permutations=5, nsteps=10)
+        >>> fres = ntw.NetworkF(schools, permutations=5, nsteps=10)
         >>> fres.lowerenvelope.shape[0]
         10
         
@@ -2583,7 +2630,9 @@ class Network:
         lowerbound=None,
         upperbound=None,
     ):
-        """Compute a network constrained `G`-function.
+        """Compute a network constrained `G`-function, which is
+        a cumulative frequency distribution of nearest neighbor distances
+        within a set of observations associated with a network.
         
         Parameters
         ----------
@@ -2623,10 +2672,21 @@ class Network:
         Notes
         -----
         
-        Based on :cite:`doi:10.1002/9780470549094.ch5` and mentioned in
-        :cite:`doi:10.1002/9781119967101.ch5`.
+        This is a network-constrained version 
+        based on the Euclidean formulation found in 
+        :cite:`doi:10.1002/9780470549094.ch5` and mentioned in
+        :cite:`doi:10.1002/9781119967101.ch5`. It is formulated in 
+        :cite:`doi:10.1002/9780470549094.ch5` as:
         
-        [note from `jlaura`] Both the `G` and `K` functions generate a
+        .. math::
+          
+          G(d) = \\frac{\\#(d_{min}(s_i)<d)}{n}
+        
+        where $s_i$ are observations totaling $n$ in $S$ and $d$ is
+        each step of distance along the network.
+        
+        **[note from `jlaura`]**
+        Both the `G` and `K` functions generate a
         full distance matrix.  This is because, I know that the full 
         generation is correct and I believe that the truncated generated, 
         e.g. nearest neighbor, has a bug.
@@ -2642,19 +2702,19 @@ class Network:
         
         Snap observation points onto the network.
         
-        >>> pt_str = "crimes"
+        >>> pt_str = "schools"
         >>> in_data = examples.get_path(pt_str+".shp")
         >>> ntw.snapobservations(in_data, pt_str, attribute=True)
         
         Simulate observations along the network.
         
-        >>> crimes = ntw.pointpatterns[pt_str]
-        >>> sim = ntw.simulate_observations(crimes.npoints)
+        >>> schools = ntw.pointpatterns[pt_str]
+        >>> sim = ntw.simulate_observations(schools.npoints)
         
-        Compute a network constrained `G`-function of crimes 
+        Compute a network constrained `G`-function of schools 
         with ``5`` ``permutations`` and ``10`` ``nsteps``.
         
-        >>> gres = ntw.NetworkG(crimes, permutations=5, nsteps=10)
+        >>> gres = ntw.NetworkG(schools, permutations=5, nsteps=10)
         >>> gres.lowerenvelope.shape[0]
         10
         
@@ -2682,7 +2742,7 @@ class Network:
         lowerbound=None,
         upperbound=None,
     ):
-        """Compute a network constrained `K`-function.
+        r"""Compute a network constrained `K`-function.
         
         Parameters
         ----------
@@ -2722,10 +2782,13 @@ class Network:
         Notes
         -----
         
-        Based on :cite:`doi:10.1111/j.1538-4632.2001.tb00448.x` 
-        and :cite:`doi:10.1002/9781119967101.ch6`.
+        Based on :cite:`Ripley1977`, 
+        :cite:`doi:10.1002/9780470549094.ch5`,
+        :cite:`doi:10.1111/j.1538-4632.2001.tb00448.x`,
+        and :cite:`doi:10.1002/9781119967101.ch6`. 
         
-        [note from `jlaura`] Both the `G` and `K` functions generate a
+        **[note from `jlaura`]**
+        Both the `G` and `K` functions generate a
         full distance matrix.  This is because, I know that the full 
         generation is correct and I believe that the truncated generated, 
         e.g. nearest neighbor, has a bug.
@@ -2741,19 +2804,19 @@ class Network:
         
         Snap observation points onto the network.
         
-        >>> pt_str = "crimes"
+        >>> pt_str = "schools"
         >>> in_data = examples.get_path(pt_str+".shp")
         >>> ntw.snapobservations(in_data, pt_str, attribute=True)
         
         Simulate observations along the network.
         
-        >>> crimes = ntw.pointpatterns[pt_str]
-        >>> sim = ntw.simulate_observations(crimes.npoints)
+        >>> schools = ntw.pointpatterns[pt_str]
+        >>> sim = ntw.simulate_observations(schools.npoints)
         
-        Compute a network constrained `K`-function of crimes 
+        Compute a network constrained `K`-function of schools 
         with ``5`` ``permutations`` and ``10`` ``nsteps``.
         
-        >>> kres = ntw.NetworkK(crimes, permutations=5, nsteps=10)
+        >>> kres = ntw.NetworkK(schools, permutations=5, nsteps=10)
         >>> kres.lowerenvelope.shape[0]
         10
         
@@ -3029,6 +3092,147 @@ def extract_component(net, component_id, weightings=None):
     return cnet
 
 
+def spanning_tree(net, method="sort", maximum=False, silence_warnings=True):
+    """Extract a minimum or maximum spanning tree from a network.
+    
+    Parameters
+    ----------
+    net : spaghetti.Network
+        Instance of a network object.
+    
+    method : str
+        Method for determining spanning tree. Currently, the only
+        supported method is 'sort', which sorts the network arcs
+        by length prior to building intermediary networks and checking
+        for cycles within the tree/subtrees. Future methods may 
+        include linear programming approachs, etc.
+    
+    maximum : bool
+        When ``True`` a maximum spanning tree is created. When ``False``
+        a minimum spanning tree is created. Default is ``False``.
+    
+    silence_warnings : bool
+        Warn if there is more than one connected component. Default is
+        ``False`` due to the nature of constructing a minimum
+        spanning tree.
+    
+    Returns
+    -------
+    net : spaghetti.Network
+        Pruned instance of the network object.
+    
+    Notes
+    -----
+    For in-depth background and details see
+    :cite:`GrahamHell_1985`,
+    :cite:`AhujaRavindraK`, and
+    :cite:`Okabe2012`.
+    
+    See also
+    --------
+    
+    networkx.algorithms.tree.mst
+    scipy.sparse.csgraph.minimum_spanning_tree
+    
+    Examples
+    --------
+    
+    Create a network instance.
+    
+    >>> from libpysal import cg
+    >>> import spaghetti
+    >>> p00 = cg.Point((0,0))
+    >>> lines = [cg.Chain([p00, cg.Point((0,3)), cg.Point((4,0)), p00])]
+    >>> ntw = spaghetti.Network(in_data=lines)
+    
+    Extract the minimum spanning tree.
+    
+    >>> minst_net = spaghetti.spanning_tree(ntw)
+    >>> min_len = sum(minst_net.arc_lengths.values())
+    >>> min_len
+    7.0
+    
+    Extract the maximum spanning tree.
+    
+    >>> maxst_net = spaghetti.spanning_tree(ntw, maximum=True)
+    >>> max_len = sum(maxst_net.arc_lengths.values())
+    >>> max_len
+    9.0
+    
+    >>> max_len > min_len
+    True
+    
+    """
+
+    # (un)silence warning
+    weights_kws = {"silence_warnings": silence_warnings}
+    # do not extract graph object while testing for cycles
+    net_kws = {"extractgraph": False, "weights_kws": weights_kws}
+
+    # if the network has no cycles, it is already a spanning tree
+    if util.network_has_cycle(net.adjacencylist):
+
+        if method.lower() == "sort":
+            spanning_tree = mst_weighted_sort(net, maximum, net_kws)
+        else:
+            msg = "'%s' not a valid method for minimum spanning tree creation"
+            raise ValueError(msg % method)
+
+        # instantiate the spanning tree as a network object
+        net = Network(in_data=spanning_tree, weights_kws=weights_kws)
+
+    return net
+
+
+def mst_weighted_sort(net, maximum, net_kws):
+    """Extract a minimum or maximum spanning tree from a network used
+    the length-weighted sort method.
+    
+    Parameters
+    ----------
+    net : spaghetti.Network
+        See ``spanning_tree()``.
+    maximum : bool
+        See ``spanning_tree()``.
+    net_kws : dict
+        Keywords arguments for instaniating a ``spaghetti.Network``.
+    
+    Returns
+    -------
+    spanning_tree : list
+        All networks arcs that are members of the spanning tree.
+    
+    Notes
+    -----
+    This function is based on the method found in Chapter 3
+    Section 4.3 of :cite:`Okabe2012`.
+    
+    """
+
+    # network arcs dictionary sorted by arc length
+    sort_kws = {"key": net.arc_lengths.get, "reverse": maximum}
+    sorted_lengths = sorted(net.arc_lengths, **sort_kws)
+
+    # the spanning tree is initially empty
+    spanning_tree = []
+
+    # iterate over each lengths of network arc
+    while sorted_lengths:
+        _arc = sorted_lengths.pop(0)
+        # make a spatial representation of an arc
+        chain_rep = util.chain_constr(net.vertex_coords, [_arc])
+        # current set of network arcs as libpysal.cg.Chain
+        _chains = spanning_tree + chain_rep
+        # current network iteration
+        _ntw = Network(in_data=_chains, **net_kws)
+        # determine if the network contains a cycle
+        if not util.network_has_cycle(_ntw.adjacencylist):
+            # If no cycle is present, add the arc to the spanning tree
+            spanning_tree.extend(chain_rep)
+
+    return spanning_tree
+
+
 @requires("geopandas", "shapely")
 def element_as_gdf(
     net,
@@ -3117,7 +3321,11 @@ def element_as_gdf(
     declaration must be in the order: <vertices>, <arcs>. 
     This function requires ``geopandas``.
     
-    
+    See also
+    --------
+        
+    geopandas.GeoDataFrame
+        
     Examples
     --------
     
@@ -3238,13 +3446,13 @@ def regular_lattice(bounds, nh, nv=None, exterior=False):
     [(3.75, 3.75), (3.75, 5.0)]
     
     Create a 7x9 regular lattice with an exterior from the 
-    bounds of ``newhaven_nework.shp``.
+    bounds of ``streets.shp``.
     
-    >>> path = libpysal.examples.get_path("newhaven_nework.shp")
+    >>> path = libpysal.examples.get_path("streets.shp")
     >>> shp = libpysal.io.open(path)
     >>> lattice = spaghetti.regular_lattice(shp.bbox, 5, nv=7, exterior=True)
     >>> lattice[0].vertices
-    [(-72.99783297382338, 41.247205), (-72.97499854017013, 41.247205)]
+    [(723414.3683108028, 875929.0396895551), (724286.1381211297, 875929.0396895551)]
     
     """
 

@@ -1,5 +1,6 @@
 <p align="center">
-<img src="figs/pysal_logo.png" width="200" height="200" />
+<img src="figs/pysal_nav_logo_2line.svg" width="370" height="200" />
+<img src="figs/spaghetti_nav_logo.svg" width="480" height="200" />
 </p>
 
 [pysal/spaghetti](http://pysal.org/spaghetti/)
@@ -10,17 +11,15 @@
 
 Spaghetti is an open-source Python library for the analysis of network-based spatial data. Originating from the `network` module in [PySAL (Python Spatial Analysis Library)](http://pysal.org), it is under active development for the inclusion of newly proposed methods for building graph-theoretic networks and the analysis of network events. This package is part of a [refactoring of PySAL](https://github.com/pysal/pysal/wiki/PEP-13:-Refactor-PySAL-Using-Submodules).
 
-*An example of shortest path plotting, routes originating from observation 0:*
-<p align="center">
-<img src="figs/shortest_path_plot.png" width="360" height="360" />
+*An example of a network's [minimum spanning tree](https://pysal.org/spaghetti/generated/spaghetti.spanning_tree.html#spaghetti.spanning_tree):*<p align="center">
+<img src="figs/mst_logo_pasta.png" width="600" height="225" />
 </p>
-
 
 |[![PyPI version](https://badge.fury.io/py/spaghetti.svg)](https://badge.fury.io/py/spaghetti)| [![Conda Version](https://img.shields.io/conda/vn/conda-forge/spaghetti.svg)](https://anaconda.org/conda-forge/spaghetti) | ![tag](https://img.shields.io/github/v/release/pysal/spaghetti?include_prereleases&sort=semver) | [![GitHub issues open](https://img.shields.io/github/issues/pysal/spaghetti.svg?maxAge=3600)](https://github.com/pysal/spaghetti/issues) | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pysal/spaghetti/master)
 |:---:|:---:|:---:|:---:|:---:|
 |[![Downloads](https://pepy.tech/badge/spaghetti)](https://pepy.tech/project/spaghetti) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/spaghetti.svg)](https://anaconda.org/conda-forge/spaghetti) | [![Documentation](https://img.shields.io/static/v1.svg?label=docs&message=current&color=9cf)](http://pysal.org/spaghetti/) | [![GitHub issues closed](https://img.shields.io/github/issues-closed/pysal/spaghetti.svg?maxAge=3600)](https://github.com/pysal/spaghetti/issues) | [![Gitter](https://badges.gitter.im/pysal/Spaghetti.svg)](https://gitter.im/pysal/Spaghetti?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 | ![Pypi python versions](https://img.shields.io/pypi/pyversions/spaghetti.svg) | [![Conda Recipe](https://img.shields.io/badge/recipe-spaghetti-red.svg)](https://github.com/conda-forge/spaghetti-feedstock) | [![codecov](https://codecov.io/gh/pysal/spaghetti/branch/master/graph/badge.svg)](https://codecov.io/gh/pysal/spaghetti) | ![Github pull requests open](https://img.shields.io/github/issues-pr/pysal/spaghetti.svg) | [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-| [![image](https://travis-ci.org/pysal/spaghetti.svg)](https://travis-ci.org/pysal/spaghetti) | [![Build status](https://ci.appveyor.com/api/projects/status/eymi8wxdcmod95ge?svg=true)](https://ci.appveyor.com/project/pysal/spaghetti) | [![DOI](https://zenodo.org/badge/88305306.svg)](https://zenodo.org/badge/latestdoi/88305306) | ![Github pull requests closed](https://img.shields.io/github/issues-pr-closed/pysal/spaghetti.svg) | [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+| [![unittests](https://github.com/pysal/spaghetti/workflows/.github/workflows/unittests.yml/badge.svg)](https://github.com/pysal/spaghetti/actions?query=workflow%3A.github%2Fworkflows%2Funittests.yml) | :spaghetti: | [![DOI](https://zenodo.org/badge/88305306.svg)](https://zenodo.org/badge/latestdoi/88305306) | ![Github pull requests closed](https://img.shields.io/github/issues-pr-closed/pysal/spaghetti.svg) | [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 
 Examples
@@ -120,3 +119,4 @@ If you use PySAL-spaghetti in a scientific publication, we would appreciate usin
     keywords  = {graph-theory,network-analysis,python,spatial-networks,topology}
 }
 ```
+ 

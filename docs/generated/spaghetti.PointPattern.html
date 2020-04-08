@@ -3,22 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>spaghetti.PointPattern &#8212; spaghetti v1.4.2 Manual</title>
+    <title>spaghetti.PointPattern &#8212; spaghetti v1.4.2.post2 Manual</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -28,6 +24,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -42,7 +42,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           spaghetti</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.4.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.4.2.post2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -75,6 +75,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/connected-components.html">Connected components in a spatial network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/shortest-path-visualization.html">Generating regular lattices and visualizing shortest paths</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/network-analysis.html">Spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/network-spatial-weights.html">Network spatial weights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/spanning-trees.html">Network spanning trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/caveats.html">Caveats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/facility-location.html">Demostrating network-based optimal facility location modeling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/transportation-problem.html">The Transportation Problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/tsp.html">The Traveling Sales(man)(person) Problem — TSP</a></li>
@@ -128,13 +131,13 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 content">
+    <div class="body col-md-12 content" role="main">
       
   <div class="section" id="spaghetti-pointpattern">
 <h1>spaghetti.PointPattern<a class="headerlink" href="#spaghetti-pointpattern" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="spaghetti.PointPattern">
-<em class="property">class </em><code class="sig-prename descclassname">spaghetti.</code><code class="sig-name descname">PointPattern</code><span class="sig-paren">(</span><em class="sig-param">in_data=None</em>, <em class="sig-param">idvariable=None</em>, <em class="sig-param">attribute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spaghetti/network.html#PointPattern"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spaghetti.PointPattern" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spaghetti.</code><code class="sig-name descname">PointPattern</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">idvariable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">attribute</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spaghetti/network.html#PointPattern"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spaghetti.PointPattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>A stub point pattern class used to store a point pattern.</p>
 <p>Note from the original author of <code class="docutils literal notranslate"><span class="pre">pysal.network</span></code>: 
 This class is monkey patched with network specific attributes when the
@@ -143,7 +146,7 @@ replaced with a generic point pattern class.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>in_data</strong><span class="classifier">{<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">tuple</span></code></a>, <a class="reference external" href="https://pysal.org/libpysal/generated/libpysal.cg.Point.html#libpysal.cg.Point" title="(in libpysal v4.2.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">libpysal.cg.Point</span></code></a>, <a class="reference external" href="https://geopandas.readthedocs.io/en/latest/reference/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.7.0+2.g0a1799d)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a>}</span></dt><dd><p>The input geographic data. Either (1) a path to a shapefile
+<dt><strong>in_data</strong><span class="classifier">{<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="docutils literal notranslate"><span class="pre">tuple</span></code></a>, <a class="reference external" href="https://pysal.org/libpysal/generated/libpysal.cg.Point.html#libpysal.cg.Point" title="(in libpysal v4.2.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">libpysal.cg.Point</span></code></a>, <a class="reference external" href="https://geopandas.readthedocs.io/en/latest/reference/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.7.0+15.g898dd86)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a>}</span></dt><dd><p>The input geographic data. Either (1) a path to a shapefile
 (str); (2) an iterable containing <code class="docutils literal notranslate"><span class="pre">libpysal.cg.Point</span></code>
 objects; (3) a single <code class="docutils literal notranslate"><span class="pre">libpysal.cg.Point</span></code>; or
 (4) a <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code>.</p>
@@ -189,9 +192,9 @@ is <code class="docutils literal notranslate"><span class="pre">False</span></co
 </dl>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="spaghetti.PointPattern.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">in_data=None</em>, <em class="sig-param">idvariable=None</em>, <em class="sig-param">attribute=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spaghetti/network.html#PointPattern.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spaghetti.PointPattern.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">in_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">idvariable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">attribute</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spaghetti/network.html#PointPattern.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spaghetti.PointPattern.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -231,7 +234,7 @@ is <code class="docutils literal notranslate"><span class="pre">False</span></co
     </p>
     <p>
         &copy; Copyright 2018, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.<br/>
     </p>
   </div>
 </footer>
