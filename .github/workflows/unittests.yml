@@ -12,7 +12,7 @@
    unittests:
      name: conda (${{ matrix.os }}, ${{ matrix.environment-file }})
      runs-on: ${{ matrix.os }}
-     timeout-minutes: 25
+     timeout-minutes: 30
      strategy:
        matrix:
          os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
@@ -30,6 +30,8 @@
          run: conda info --all
        - shell: bash -l {0}
          run: conda list
+       - shell: bash -l {0}
+         run: python -m black spaghetti --check
        - shell: bash -l {0}
          run: py.test -v spaghetti --cov=spaghetti --doctest-modules --cov-config=.coveragerc --cov-report=xml
        - name: codecov (${{ matrix.os }}, ${{ matrix.environment-file }})
